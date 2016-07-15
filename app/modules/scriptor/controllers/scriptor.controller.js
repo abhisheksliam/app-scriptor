@@ -9,7 +9,8 @@ angular.module('automationApp.scriptor')
 			$scope.scenarios =  scriptorService.getScenarios();
 			$scope.taskJson =  scriptorService.getTaskJson();
 			$scope.triggers =	scriptorService.getTriggers();
-	  
+			$scope.methodtypelist =	scriptorService.getMethodTypeList();
+
 			/* Template Code to be kept in first route to be loaded */
 			$scope.$on('$viewContentLoaded', function () {
 				pluginsService.init();

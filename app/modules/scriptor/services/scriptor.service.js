@@ -685,6 +685,17 @@ angular.module('automationApp.scriptor')
             }
         ];
 
+        var methodtypelist = [
+                            "Ribbon",
+                            "Keyboard",
+                            "Toolbar",
+                            "Mouse",
+                            "Shortcut Menu",
+                            "Other",
+                            "Menu",
+                            "Right Click"
+                        ];
+
 
         /**************** Private functions ********/
 
@@ -716,11 +727,17 @@ angular.module('automationApp.scriptor')
             return taskJson;
         }
 
+        var getMethodTypeList = function() {
+            return methodtypelist;
+        }
+
+
         return {
         "uiElements" : {},
         "getApplications": getApplications,
         "getScenarios": getScenarios,
         "getTriggers":  getTriggers,
-        "getTaskJson": getTaskJson
+        "getTaskJson": getTaskJson,
+        "getMethodTypeList": getMethodTypeList
     };
 });

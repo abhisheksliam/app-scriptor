@@ -5,14 +5,7 @@
         <h5>M{{$index+1}}  <span class="method-type-value">{{method.type}}</span>
                             <span class="method-type-selector">
                                   <select class="form-white" data-style="white">
-                                      <option>Ribbon</option>
-                                      <option>Keyboard</option>
-                                      <option>Toolbar</option>
-                                      <option>Mouse</option>
-                                      <option>Shortcut Menu</option>
-                                      <option>Other</option>
-                                      <option>Menu</option>
-                                      <option>Right Click</option>
+                                      <option ng-repeat="methodtype in methodtypelist">{{methodtype}}</option>
                                   </select>
                             </span>
 

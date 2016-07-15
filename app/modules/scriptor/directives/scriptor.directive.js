@@ -11,7 +11,8 @@ angular.module('automationApp.scriptor')
             templateUrl: 'modules/scriptor/directives/scriptor.tpl.html',
             scope: {
                 'items': '=',
-                'triggers': '='
+                'triggers': '=',
+                'methodtypelist': '='
             },
             link: function (scope, element, attributes) {
 

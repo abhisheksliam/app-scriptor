@@ -10,7 +10,8 @@ angular.module('automationApp.scriptor')
             restrict: 'A',
             templateUrl: 'modules/scriptor/directives/itemPanel.tpl.html',
             scope: {
-                'items': '='
+                'items': '=',
+                'methodtypelist': '='
             },
             link: function (scope, element, attributes) {
 

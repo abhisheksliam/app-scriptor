@@ -12,9 +12,10 @@ angular.module('automationApp.scriptor')
             templateUrl: 'modules/scriptor/directives/method.tpl.html',
             scope: {
                 'method': '=',
-                'index' : '='
+                'index' : '=',
+                'methodtypelist' : '='
             },
-            link: function (scope, element, attributes) {
+            link: function (scope, element, attributes,methodtypelist) {
 
                 element.find(".baloo-actions-text").click(function (event) {
                     event.preventDefault();
