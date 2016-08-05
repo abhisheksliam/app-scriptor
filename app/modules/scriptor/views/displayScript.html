@@ -10,60 +10,73 @@
 			<span class="col-sm-6 p-l-5 breadcrum-text"><span class="p-r-10">{{scriptor.taskId}}</span> > <span class="p-l-10"> Scenario </span> <span>{{scriptor.scenarioType}}</span></span>
 			<span id="custom" class="col-sm-6 pull-right p-r-0">
 				<span class="col-sm-12 p-r-0">
-				<a href="#" class="panel-toggle edit-icon-topband pull-right m-l-5"><span class="pipe"></span><i class="fa fa-pencil"></i></a>
+				<a href="#" class="panel-toggle edit-icon-topband pull-right m-l-5"><span class="pipe"></span><i class="fa fa-pencil" data-toggle="modal" data-target="#modal-topfull"></i></a>
 				<h5 class="appname-topband-collapsed pull-right"><span class="application-label">Application</span> > <span class="application-value">{{scriptor.applicationName}}</span></h5>
 				</span>
 			</span>
 		</div>
 		<hr class="m-0">
-		<form name="userForm">
-			<div class="panel-content p-b-0" style="display: none;">
-				<div class="row">
-					<div class="col-lg-12 m-l-5">
-						<div class="row">
-							<div class="col-md-5 application-dd-combo">
-								<div class="form-group">
-									<label class="control-label">Application</label>
+
+		<!-- modal-->
+		<div class="row">
+			<div class="modal fade" id="modal-topfull" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+						</div>
+						<form name="userForm">
+						<div class="modal-body">
+								<div class="row">
+									<div class="col-lg-12 m-l-5">
+										<div class="row">
+											<div class="col-md-5 application-dd-combo">
+												<div class="form-group">
+													<label class="control-label">Application</label>
 										<span class="application-value-dd p-l-20">
 										<select class="form-control use-select2 form-white" data-style="white"
 												ng-model="applicationName"
 												ng-options="application for application in applications" required>
 										</select>
 										</span>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label class="control-label">Scenario</label>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="control-label">Scenario</label>
 									<span class="scenario-value-dd p-l-20">
 										<select class="form-control use-select2 form-white" data-style="white"
 												ng-model="scenarioType"
 												ng-options="scenario for scenario in scenarios" required>
 										</select>
 									</span>
-								</div>
-							</div>
-						</div>
-						<div class="row p-l-0">
-							<div class="col-md-6 m-b-20 m-t-5">
+												</div>
+											</div>
+										</div>
+										<div class="row p-l-0">
+											<div class="col-md-6 m-b-20 m-t-5">
                                 <span class="input input--hoshi taskid-input m-l-0 f-14">
                                 <input class="input__field input__field--hoshi m-t-0" type="text" id="taskid" ng-init="taskId" ng-model="taskId" placeholder="Task Id">
                                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="taskid">
 									<span class="input__label-content input__label-content--hoshi m-b-15"></span>
 								</label>
                                 </span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row margin-minus-r-l-20">
-					<div class="bg-light text-right">
-						<button type="reset" class="cancel btn btn-embossed btn-white m-r-20 m-t-10">Cancel</button>
-						<button id="save-task-topband" type="submit" class="btn btn-embossed btn-primary m-r-20 m-t-10" ng-click="updateData()">Update / Save</button>
+							<div class="modal-footer bg-light text-right">
+								<button type="reset" class="cancel btn btn-embossed btn-white m-r-20 m-t-10">Cancel</button>
+								<button id="save-task-topband" type="submit" class="btn btn-embossed btn-primary m-r-20 m-t-10" ng-click="updateData()">Update / Save</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
-		</form>
+		</div>
+		<!---->
+
 	</div>
 	<!--end top band-->
     <scriptor items="taskJson" triggers="triggers" methodtypelist="methodtypelist"></scriptor>
