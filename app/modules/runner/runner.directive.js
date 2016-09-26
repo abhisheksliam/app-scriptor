@@ -219,8 +219,10 @@ angular.module('automationApp.runner')
                         var runnerAPI = scope.runnerConfig.runner.api;
                         var selectedBrowser = scope.runnerConfig.browser[0];
 
-
-                        var formData =   {
+/**
+* old formdata
+*/
+/*                        var formData =   {
                             "command": scope.runnerConfig.testCommand,
                             "params": [
                                 "-DappURL=" + scope.runnerConfig.user[name].ApplicationURL,
@@ -237,7 +239,39 @@ angular.module('automationApp.runner')
                                 "java": javaContent
                             },
                             "clientIp" : scope.runnerConfig.user[name].clientIp
-                        };
+                        };*/
+
+/**
+* new formdata
+*/
+                    var formData =   {
+                                    "user" : {
+                                    "name" : username,
+                                        "ip" : scope.runnerConfig.user[name].clientIp,
+                                        "userdata" : {}
+                                },
+                                    "run" : {
+                                    "env" : "hub",
+                                        "os" : "",
+                                        "resolution": "",
+                                        "app" : {
+                                        "url" : scope.runnerConfig.user[name].ApplicationURL,
+                                            "public" : "false",
+                                            "build" : ""
+                                    },
+                                    "browser" : {
+                                        "node" : scope.runnerConfig.user[name].nodeName,
+                                            "name" : selectedBrowser,
+                                            "version" : "46"
+                                    }
+                                },
+                                    "task": {
+                                    "filename": filename,
+                                        "appName" : appName,
+                                        "xml": xmlContent,
+                                        "java": javaContent
+                                }
+                            };
 
                         // process the form
                         $.ajax({
