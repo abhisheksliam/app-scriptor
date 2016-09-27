@@ -1,6 +1,6 @@
 {
   "runner" : {
-    "url": "http://localhost:9001",
+    "url": "http://loadrunner1:9001",
     "api": "/sims/runtask"
   },
   "testCommand" : "mvn test",
@@ -13,7 +13,7 @@
     "Firefox"
   ],
   "params": {
-    "HubIp" : "192.168.1.200",
+    "HubIp" : "192.168.1.164",
     "HubPort" : "4444",
     "OS" : "WINDOWS",
     "browserVersion" : "ANY",
