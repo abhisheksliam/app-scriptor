@@ -220,29 +220,7 @@ angular.module('automationApp.runner')
                         var selectedBrowser = scope.runnerConfig.browser[0];
 
 /**
-* old formdata
-*/
-/*                        var formData =   {
-                            "command": scope.runnerConfig.testCommand,
-                            "params": [
-                                "-DappURL=" + scope.runnerConfig.user[name].ApplicationURL,
-                                "-DtestName=" + appName + ".Test_" + filename,
-                                "-DbrName=" + selectedBrowser,
-                                "-Dnode=" + scope.runnerConfig.user[name].nodeName,
-                                "-DhubIp=" + scope.runnerConfig.params.HubIp,
-                                "-DhubPort=" + scope.runnerConfig.params.HubPort
-                            ],
-                            "task": {
-                                "filename": filename,
-                                "appName": appName,
-                                "xml": xmlContent,
-                                "java": javaContent
-                            },
-                            "clientIp" : scope.runnerConfig.user[name].clientIp
-                        };*/
-
-/**
-* new formdata
+* formdata
 */
                     var formData =   {
                                     "user" : {
