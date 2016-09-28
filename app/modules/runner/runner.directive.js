@@ -219,25 +219,37 @@ angular.module('automationApp.runner')
                         var runnerAPI = scope.runnerConfig.runner.api;
                         var selectedBrowser = scope.runnerConfig.browser[0];
 
-
-                        var formData =   {
-                            "command": scope.runnerConfig.testCommand,
-                            "params": [
-                                "-DappURL=" + scope.runnerConfig.user[name].ApplicationURL,
-                                "-DtestName=" + appName + ".Test_" + filename,
-                                "-DbrName=" + selectedBrowser,
-                                "-Dnode=" + scope.runnerConfig.user[name].nodeName,
-                                "-DhubIp=" + scope.runnerConfig.params.HubIp,
-                                "-DhubPort=" + scope.runnerConfig.params.HubPort
-                            ],
-                            "task": {
-                                "filename": filename,
-                                "appName": appName,
-                                "xml": xmlContent,
-                                "java": javaContent
-                            },
-                            "clientIp" : scope.runnerConfig.user[name].clientIp
-                        };
+/**
+* formdata
+*/
+                    var formData =   {
+                                    "user" : {
+                                    "name" : username,
+                                        "ip" : scope.runnerConfig.user[name].clientIp,
+                                        "userdata" : {}
+                                },
+                                    "run" : {
+                                    "env" : "hub",
+                                        "os" : "",
+                                        "resolution": "",
+                                        "app" : {
+                                        "url" : scope.runnerConfig.user[name].ApplicationURL,
+                                            "public" : "false",
+                                            "build" : ""
+                                    },
+                                    "browser" : {
+                                        "node" : scope.runnerConfig.user[name].nodeName,
+                                            "name" : selectedBrowser,
+                                            "version" : "46"
+                                    }
+                                },
+                                    "task": {
+                                    "filename": filename,
+                                        "appName" : appName,
+                                        "xml": xmlContent,
+                                        "java": javaContent
+                                }
+                            };
 
                         // process the form
                         $.ajax({
