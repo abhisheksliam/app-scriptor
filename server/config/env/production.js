@@ -4,6 +4,9 @@ var config= {
         "dbURL": "ds023674.mlab.com:23674/runnerv2",
         "username": "root",
         "password": "admin"
+    },
+    svn: {
+        url:""
     }
 };
 

@@ -42,6 +42,11 @@ exports.updateTask = function (req, res) {
     checkForTemplateAndSave(req, res, false);
 };
 
+/**
+ * Return complete task json
+ * @param req
+ * @param res
+ */
 exports.getTaskScript = function (req, res) {
     AutomationScripts.find({task_id: req.params.task_id}, function(err, scriptData) {
         if (err) {
