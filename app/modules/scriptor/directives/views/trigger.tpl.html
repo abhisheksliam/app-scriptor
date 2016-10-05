@@ -5,11 +5,17 @@
         </div>
         <div class="control-btn">
             <a href="#" ng-disabled="editMode" class="panel-edit" data-toggle="tooltip" data-placement="top" title="Edit Trigger Details"><i class="fa fa-pencil p-l-10"></i></a>
-            <a href="#" ng-disabled="editMode" class="panel-copy copy-trigger" data-toggle="tooltip" data-placement="top" title="Duplicate Trigger"><i class="fa fa-copy"></i></a>
+
+            <span class="dropdown" dropdown>
+                 <a href="#" class="dropdown-toggle panel-copy" dropdown-toggle ng-disabled="editMode" data-toggle="tooltip" data-placement="top" title="Duplicate Trigger"><i class="fa fa-copy"></i><span class="caret"></span></a>
+                <ul class="dropdown-menu" dropdown-menu>
+                    <li><a class="copy-trigger">Duplicate</a></li>
+                    <li><a class="copy-clipboard">Copy & Move to other items</a></li>
+                </ul>
+            </span>
+            <a href="#" ng-disabled="$root.triggerPaste" class="panel-paste" data-toggle="tooltip" data-placement="top" title="Paste Trigger below"><i class="fa fa-clipboard"></i></a>
             <a href="#" class="panel-close" data-toggle="tooltip" data-placement="top" title="Delete trigger"><i class="icon-trash"></i></a>
             <a href="#" class="panel-move" data-toggle="tooltip" data-placement="top" title="Drag Trigger to re-order"><i class="fa fa-arrows"></i></a>
-<!--            <a href="#" class="panel-copy-special" data-toggle="tooltip" data-placement="top" title="Copy Trigger"><i class="fa fa-clipboard"></i></a>
-            <a href="#" class="panel-paste-special" data-toggle="tooltip" data-placement="top" title="Paste Trigger below"><i class="fa fa-clipboard"></i></a>-->
         </div>
     </div>
     <div class="m-l-30 p-l-30 f-12 p-b-10" ng-hide="editMode">
