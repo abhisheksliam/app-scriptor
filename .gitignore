@@ -11,3 +11,14 @@ bower_components
 dist
 
 todo.txt
+# Ignore fw files
+server/lib/.classpath
+server/lib/.project
+server/lib/.settings/
+server/lib/.svn/
+server/lib/pom.xml
+server/lib/src/
+
+
+
+

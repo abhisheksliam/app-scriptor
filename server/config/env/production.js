@@ -6,7 +6,7 @@ var config= {
         "password": "admin"
     },
     svn: {
-        url:""
+        url:"http://svn1.comprotechnologies.com/sim5/branches/QA_AutomationScripts/sim5office16-runnerv2"
     }
 };
 

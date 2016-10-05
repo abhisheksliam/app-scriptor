@@ -435,7 +435,14 @@ angular.module('automationApp.runner')
                     var taskData = scope.items[0];
                     scriptorService.exportSvn(taskData.id, taskData.scenario, taskData.appName).then(function (res) {
                         console.log(res);
-                        $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Request for commit sent !' + '</p></div>');
+                        if(! res.data) {
+                            $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Error in commiting files</p></div>');
+                        }
+                        else if(res.data.error == true) {
+                            $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.msg + '</p></div>');
+                        } else {
+                            $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + res.data.msg + '</p></div>');
+                        }
                         // todo: show commit status to user.
                     });
                 });

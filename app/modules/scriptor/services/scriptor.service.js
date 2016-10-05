@@ -189,7 +189,8 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         };
 
-        var exportSvn = function(task_id, scenario, appName, username) {
+        var exportSvn = function(task_id, scenario, appName) {
+            console.log('user' + username);
             var exportS = $http.post('/api/publish/svn', {
                 "task_id": task_id,
                 "scenario": scenario,
