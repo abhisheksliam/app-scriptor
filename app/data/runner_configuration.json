@@ -1,6 +1,6 @@
 {
   "runner" : {
-    "url": "http://localhost:9001",
+    "url": "http://loadrunner1:9001",
     "api": "/sims/runtask"
   },
   "run": {
