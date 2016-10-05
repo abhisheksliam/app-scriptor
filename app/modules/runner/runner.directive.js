@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('automationApp.runner')
-    .directive('runnerLauncher', ['$timeout', '$http', '$rootScope', function($timeout, $http, $rootScope) {
+    .directive('runnerLauncher', ['$timeout', '$http', '$rootScope','scriptorService', function($timeout, $http, $rootScope,scriptorService) {
         return {
             restrict: 'A',
             templateUrl: 'modules/runner/runnerLauncher.tpl.html',
@@ -441,18 +441,20 @@ angular.module('automationApp.runner')
                     event.stopPropagation();
                 });
 
-                $(".download-node-connect-btn").click(function(){
-                    var url = "http://loadrunner1";
-                    if(scope.runnerConfig){
-                        url = scope.runnerConfig.runner.url.substring(0,scope.runnerConfig.runner.url.lastIndexOf(":"));
-                    }
-                    var batFileContent = '@echo off' +'\n' +
-                        'echo enter username:' + '\n' +
-                        'set /p username=""' +  '\n' +
-                        'echo connecting browser node to grid..' + '\n' +
-                        'java -jar selenium-server-standalone-2.41.0.jar -role webdriver -hub ' +
-                        url + ':4444/grid//register -browser browserName="chrome",version=ANY,platform=WINDOWS,maxInstances=5,applicationName=%username% -Dwebdriver.chrome.driver=chromedriver.exe -port 6666'
-                    download(batFileContent, "browser-connect.bat", "text/plain");
+                $(".publish-svn").click(function(){
+                    var taskData = scope.items[0];
+                    scriptorService.exportSvn(taskData.id, taskData.scenario, taskData.appName).then(function (res) {
+                        console.log(res);
+                        if(! res.data) {
+                            $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Error in commiting files</p></div>');
+                        }
+                        else if(res.data.error == true) {
+                            $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.msg + '</p></div>');
+                        } else {
+                            $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + res.data.msg + '</p></div>');
+                        }
+                        // todo: show commit status to user.
+                    });
                 });
             }
         }

@@ -1,0 +1,2 @@
+this folder contains svn checkout of java framework with test script.
+src folder stays parallel to this file
