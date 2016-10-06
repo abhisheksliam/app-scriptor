@@ -189,23 +189,38 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         };
 
+        var exportSvn = function(task_id, scenario, appName) {
+            console.log('user' + username);
+            var exportS = $http.post('/api/publish/svn', {
+                "task_id": task_id,
+                "scenario": scenario,
+                "appname":appName,
+                "username" : username
+            });
+
+            var deferred = $q.defer();
+            deferred.resolve(exportS);
+            return deferred.promise;
+        };
+
         return {
-        "taskContent" : {},
-        "getGlobalContext": getGlobalContext,
-        "getTaskJson": getTaskJson,
-        "getTaskXml": getTaskXml,
-        "getApplicationFromScenarioId": getApplicationFromScenarioId,
-        "saveTaskScript": saveTaskScript,
-        "updateTaskScript": updateTaskScript,
-        "updateTaskJson": updateTaskJson,
-        "getTriggers":  getTriggers,
-        "getTriggerForID": getTriggerForID,
-        "getTriggerSuggestions": getTriggerSuggestions,
-        "getKeyNameSuggestions":getKeyNameSuggestions,
-        "getElementNameSuggestions":getElementNameSuggestions,
-        "getXPathForElement" : getXPathForElement,
-        "saveXpath": saveXpath,
-        "getApplicationXpathList": getApplicationXpathList,
-        "getXpathArrayList": getXpathArrayList
-    };
+            "taskContent" : {},
+            "getGlobalContext": getGlobalContext,
+            "getTaskJson": getTaskJson,
+            "getTaskXml": getTaskXml,
+            "getApplicationFromScenarioId": getApplicationFromScenarioId,
+            "saveTaskScript": saveTaskScript,
+            "updateTaskScript": updateTaskScript,
+            "updateTaskJson": updateTaskJson,
+            "getTriggers":  getTriggers,
+            "getTriggerForID": getTriggerForID,
+            "getTriggerSuggestions": getTriggerSuggestions,
+            "getKeyNameSuggestions":getKeyNameSuggestions,
+            "getElementNameSuggestions":getElementNameSuggestions,
+            "getXPathForElement" : getXPathForElement,
+            "saveXpath": saveXpath,
+            "getApplicationXpathList": getApplicationXpathList,
+            "getXpathArrayList": getXpathArrayList,
+            "exportSvn": exportSvn
+        };
 }]);

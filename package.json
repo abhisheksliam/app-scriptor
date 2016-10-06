@@ -57,7 +57,9 @@
     "passport-local": "1.0.0",
     "wiredep": "~2.2.0",
     "wrench": "~1.5.8",
-    "jshint-stylish": "~1.0.0"
+    "jshint-stylish": "~1.0.0",
+    "svn-spawn":"",
+    "mkdirp":""
     },
   "engines": {
     "node" : "4.4.4"

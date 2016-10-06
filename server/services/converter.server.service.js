@@ -56,6 +56,11 @@ exports.transformPathwaysOldFormat=function (scriptData) {
     return scriptData;
 };
 
+/**
+ * Export complete xml
+ * @param scriptData
+ * @returns {string}
+ */
 exports.jsonToDistXml = function(scriptData) {
 
     if(scriptData.task_json[0] !== undefined){
@@ -134,6 +139,11 @@ exports.jsonToDistXml = function(scriptData) {
 
 };
 
+/**
+ * Export complete java
+ * @param scriptData
+ * @returns {string}
+ */
 exports.jsonToDistJava = function(scriptData) {
 
     if(scriptData.task_json[0] !== undefined){

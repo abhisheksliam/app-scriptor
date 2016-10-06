@@ -32,7 +32,7 @@ var mongoose = require("mongoose");
 let app = express();
 /// passport config
 require('./server/config/passport')(passport);
-
+GLOBAL._serverDirectory = __dirname;
 //-----------Express Middlewares-------------------
 // 1. HTTP CACHE HEADERS
 app.use(function(req, res, next) {

@@ -2,6 +2,7 @@
 var apirouter = require('express').Router();
 var scriptorController = require('../../controllers/scriptor.server.controller');
 var xpathController = require('../../controllers/xpath.server.controller');
+var svnController = require('../../controllers/svn.server.controller');
 
 // Middleware for all this apirouters requests
 apirouter.use(function timeLog(req, res, next) {
@@ -51,6 +52,14 @@ apirouter.get('/xpaths/:app_type/:xpath_key', xpathController.getApplicationXpat
 
 // update xpath: update xpath value + add task_id tag (no duplicates)
 apirouter.put('/xpaths/:app_type/:xpath_key', xpathController.updateApplicationXpath);
+
+
+/**
+ * For publish to SVN
+ */
+
+// add xpath: error on existing xpath key for app
+apirouter.post('/publish/svn', svnController.publishTask);
 
 module.exports = apirouter;
 

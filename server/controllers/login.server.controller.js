@@ -20,7 +20,7 @@ var getUserPassword = function(email, callback){
 
 var googleLogin = function (req,done,er) {
 
-//    validate google login
+//  validate google login
     var _v1 = ('/oauth2/v3/tokeninfo?id_token=' + req.body.id_token);
 
     var options = {
