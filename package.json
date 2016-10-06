@@ -58,7 +58,6 @@
     "wiredep": "~2.2.0",
     "wrench": "~1.5.8",
     "jshint-stylish": "~1.0.0",
-    "node-svn-ultimate":"1.0.3",
     "svn-spawn":"",
     "mkdirp":""
     },
