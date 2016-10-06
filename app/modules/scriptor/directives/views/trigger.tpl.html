@@ -37,6 +37,7 @@
                 </label>
             </span>
             </div>
+            <input i-check ng-model="enableXpath" class="m-l-30 p-l-30 trigger-xpath-check" type="checkbox" id="enableXpath" name="enableXpath" value="" ng-show="$root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1">Auto Generate Xpath
             <div class="bg-light text-right">
                 <button type="reset" ng-disabled="droppedTrigger" class="cancel btn btn-embossed btn-white m-r-0 trigger-cancel">Cancel</button>
                 <button type="submit" class="btn btn-embossed btn-primary m-r-20 trigger-save">Update / Save</button>
