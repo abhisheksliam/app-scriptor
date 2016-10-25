@@ -216,6 +216,14 @@ angular.module('automationApp.scriptor')
             return lsmValue;
         };
 
+        var getTaskXpaths = function(task_id) {
+            var userDetails = $http.get('/api/xpaths/apps/task/'+task_id);
+
+            var deferred = $q.defer();
+            deferred.resolve(userDetails);
+            return deferred.promise;
+        };
+
 
         return {
         "taskContent" : {},
@@ -237,6 +245,7 @@ angular.module('automationApp.scriptor')
         "getXpathArrayList": getXpathArrayList,
         "getUserDetails": getUserDetails,
         "getLocalStorageValue": getLocalStorageValue,
-        "setLocalStorageValue": setLocalStorageValue
+        "setLocalStorageValue": setLocalStorageValue,
+        "getTaskXpaths": getTaskXpaths
     };
 }]);

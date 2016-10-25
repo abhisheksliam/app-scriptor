@@ -53,6 +53,7 @@ apirouter.get('/xpaths/:app_type/:xpath_key', xpathController.getApplicationXpat
 // update xpath: update xpath value + add task_id tag (no duplicates)
 apirouter.put('/xpaths/:app_type/:xpath_key', xpathController.updateApplicationXpath);
 
+apirouter.get('/xpaths/apps/task/:task_id', xpathController.getTaskXpaths);
 
 // get user details
 apirouter.get('/user/:user_name', loginController.getUser);

@@ -495,7 +495,8 @@ angular.module('automationApp.runner')
                                 "appName" : appName,
                                 "xml": xmlContent,
                                 "java": javaContent,
-                                "commit": commit
+                                "commit": commit,
+                                "xpaths": []
                             },
                             "svn": {
                                 "url": "",
@@ -513,35 +514,46 @@ angular.module('automationApp.runner')
                                 else {
 
                                     try{
-                                        formData.svn.username = res.data.profile.svn_credentials.username;
-                                        formData.svn.password = res.data.profile.svn_credentials.password;
 
-                                        $('.svn-commit-status').removeClass("hide");
-                                        $(".svn-commit-status").addClass("show");
+                                        try{
+                                            formData.svn.username = res.data.profile.svn_credentials.username;
+                                            formData.svn.password = res.data.profile.svn_credentials.password;
 
-                                        $.ajax({
-                                            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-                                            url         : baseUrl + runnerAPI, // the url where we want to POST
-                                            data        : formData, // our data object
-                                            dataType    : 'json', // what type of data do we expect back from the server
-                                            success: function(d){
-                                                console.log(d);
-                                            },
-                                            error: function(er) {
-                                                console.log('error');
-                                                console.log(er);
-                                            }
-                                        });
+                                        } catch (err){
+                                            scope.errorList.push("Error in getting svn credentials !");
+                                        }
+                                        getXpathsToCommit(filename, function(xpaths){
+
+                                            formData.task.xpaths = xpaths;
+
+                                            $('.svn-commit-status').removeClass("hide");
+                                            $(".svn-commit-status").addClass("show");
+
+                                            $.ajax({
+                                                type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                                                url         : baseUrl + runnerAPI, // the url where we want to POST
+                                                data        : formData, // our data object
+                                                dataType    : 'json', // what type of data do we expect back from the server
+                                                success: function(d){
+                                                    console.log(d);
+                                                },
+                                                error: function(er) {
+                                                    console.log('error');
+                                                    console.log(er);
+                                                }
+                                            });
+
+                                        })
 
                                     } catch (er){
 
-                                        scope.errorList.push("Error in getting svn credentials !");
+                                        scope.errorList.push("Error in posting commit data !");
 
+                                    } finally {
                                         if(scope.errorList.length > 0) {
                                             $('.err-list').removeClass("hide");
                                             $(".err-list").addClass("show");
                                         }
-
                                     }
 
                                 };
@@ -705,6 +717,19 @@ angular.module('automationApp.runner')
 
                     return _conf;
                 }
+
+                function getXpathsToCommit(task_id, done){
+                    scriptorService.getTaskXpaths(task_id.replace(/_/g, '.')).then(function(xpaths) {
+                        var xpathsToCommit = []
+                        if (xpaths.data.length){
+                            for(var i in xpaths.data) {
+                                var _temp = (xpaths.data[i].xpath.key.trim()).replace(/ /g, "\\ ") + ' = ' + (xpaths.data[i].xpath.value.trim()).replace(/ /g, "\\ ");
+                                xpathsToCommit.push(_temp)
+                            }
+                        }
+                        done(xpathsToCommit);
+                    });
+                };
 
             }
         }
