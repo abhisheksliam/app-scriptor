@@ -12,6 +12,8 @@ angular.module('automationApp.runner')
 
                 scope.methodSelection = {};
 
+                var childWindow = $rootScope.childWindow;
+
                 var initRunConfig = setInterval(function(){
 
                     $http.get('data/runner_configuration.json').then(function(res) {
@@ -321,7 +323,13 @@ angular.module('automationApp.runner')
 
                         var filename = (scenarioId).replace(/\./gi, "_").trim();
 
-                        window.open (baseUrl,",","menubar=1,resizable=1,width=1200,height=800");
+                        if (childWindow === undefined || childWindow === null || childWindow.closed) {
+                            childWindow = window.open(baseUrl,"WindowForRunTask","menubar=1,resizable=1,width=1200,height=800");
+                            $rootScope.childWindow = childWindow;
+                        }
+                        else {
+                            childWindow.focus();
+                        }
 
                         var xmlContent = getXmlContent();
                         var javaContent = getJavaContent(filename);
@@ -354,7 +362,13 @@ angular.module('automationApp.runner')
 
                         var xmlContent;
 
-                        window.open (baseUrl,",","menubar=1,resizable=1,width=1300,height=700");
+                        if (childWindow === undefined || childWindow === null || childWindow.closed) {
+                            childWindow = window.open(baseUrl,"WindowForRunTask","menubar=1,resizable=1,width=1200,height=800");
+                            $rootScope.childWindow = childWindow;
+                        }
+                        else {
+                            childWindow.focus();
+                        }
 
                         var xmlQueryParam = '?format=xml';
                         var javaQueryParam = '?format=java';
