@@ -32,7 +32,7 @@
                 </ol>
             </div>
             <button title="Run Task" class="btn btn-primary run-task disabled" disabled="true"><i class="fa fa-play inline-icon" aria-hidden="true"></i>Run Task</button>
-
+            <code>** Make sure run configurations are set before running test</code>
             <hr/>
 
              <label class="add-pathway-label">Select Pathway Groups</label>
@@ -105,12 +105,14 @@
                     <span class="p-l-10">
                         <input ng-model="brnode" class="form-control form-white p-l-10 input-allign .brnode" type="text" placeholder="Node Name" value="{{brnode}}">
                     </span>
+                    <code>** Connect browser to grid before running test <a href="www.seleniumhq.org/docs/07_selenium_grid.jsp" target="_blank">&#9741;reference</a></code>
                     </span>
                     <span ng-show="host=='saucelabs'">
                     <label class="p-t-10">Resolution:</label>
                     <span class="p-l-10">
                         <input ng-model="screenresolution" class="form-control form-white p-l-10 input-allign" type="text" placeholder="1600x1024" value="{{screenresolution}}">
                     </span>
+                    <code>** Use valid Browser resolution & version <a href="www.saucelabs.com/platforms" target="_blank">&#9741;reference</a></code>
                     </span>
                 </div>
             </section>

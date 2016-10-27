@@ -36,7 +36,6 @@ function arrayUnique(array) {
 }
 
 exports.addXpath = function (req, res) {
-
     Xpath.find({$and: [
             {'app_type': req.body.app_type},
             {'xpath.key': req.body.xpath.key}
@@ -90,7 +89,6 @@ exports.addXpath = function (req, res) {
 };
 
 exports.getXpaths = function (req, res) {
-
     Xpath.find(function(err, xpathData) {
         if (err) {
             res.json({
@@ -120,7 +118,6 @@ exports.getApplicationXpaths = function (req, res) {
 };
 
 exports.getApplicationXpathValue = function (req, res) {
-
     Xpath.find({$and: [
         {'app_type': req.params.app_type},
         {'xpath.key': req.params.xpath_key}
@@ -136,6 +133,22 @@ exports.getApplicationXpathValue = function (req, res) {
         res.json(xpathList);
     });
 
+};
+
+exports.getTaskXpaths = function (req, res) {
+    console.log(req);
+    console.log(req.params.task_id);
+    Xpath.find({'tags': req.params.task_id},function(err, xpathList) {
+        if (err) {
+            res.json({
+                "errors": {
+                    "errorMessage": err,
+                    "errorCode": "PROCESSING_ERROR"
+                }
+            });
+        }
+        res.json(xpathList);
+    });
 };
 
 exports.updateApplicationXpath = function (req, res) {
