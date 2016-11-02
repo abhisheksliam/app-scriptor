@@ -18,10 +18,11 @@ angular.module('automationApp.users')
 
     var updateUserDetails = function(user) {
         var updateUser = $http.put('/api/users/' + user.username, {
+            "password" : user.password,
             "name" : user.profile.name,
             "email" : user.profile.email,
-            "svnusername" : user.profile.svn_credentials.username/*,
-            "svnpassword" : user.profile.svn_credentials.password*/
+            "svnusername" : user.profile.svn_credentials.username,
+            "svnpassword" : user.profile.svn_credentials.password
         });
 
         var deferred = $q.defer();

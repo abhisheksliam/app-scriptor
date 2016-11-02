@@ -40,18 +40,11 @@ apirouter.delete('/tasks/:task_id', scriptorController.deleteTaskScript);
 // add xpath: error on existing xpath key for app
 apirouter.post('/xpaths', xpathController.addXpath);
 
-// get all xpath
-apirouter.get('/xpaths', xpathController.getXpaths);
-
-// get xpath for app_type
-apirouter.get('/xpaths/:app_type', xpathController.getApplicationXpaths);
-
-// get xpath: by key + app_type
-apirouter.get('/xpaths/:app_type/:xpath_key', xpathController.getApplicationXpathValue);
-
 // update xpath: update xpath value + add task_id tag (no duplicates)
-apirouter.put('/xpaths/:app_type/:xpath_key', xpathController.updateApplicationXpath);
+apirouter.put('/xpaths/:app_type/:xpath_key', function(){});
 
+// tagged xpath for a task, may not return all the xpaths of the task
+apirouter.get('/xpaths/task/tagged/:task_id', xpathController.getTaskXpaths);
 
 // get user details
 apirouter.get('/users/:user_name', userController.getUser);

@@ -101,6 +101,7 @@ app.use(passport.session()); // persistent login sessions
 
 // Define a prefix for all routes
 app.use('/', routes.webrouter);
+app.use('/open', routes.openrouter);
 
 app.all('*',function(req,res,next){
     if(req.isAuthenticated()){

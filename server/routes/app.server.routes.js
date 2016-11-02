@@ -5,3 +5,4 @@
 
 module.exports.webrouter = require('./web');
 module.exports.apirouter = require('./api');
+module.exports.openrouter = require('./api/openrouter');

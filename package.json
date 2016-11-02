@@ -4,7 +4,6 @@
   "description": "SIM5 Automation Tool",
   "main": "server.js",
   "scripts": {
-    "postinstall": "bower prune && bower install && gulp",
     "start": "node server.js"
   },
   "dependencies": {
@@ -19,7 +18,7 @@
     "crypto": "0.0.3",
 	"del": "^2.0.2",
     "mongoose": "~4.3.7",
-    "express": "^4.9.8",
+    "express": "4.9.8",
     "express-handlebars": "^2.0.1",
     "express-session": "^1.13.0",
     "express-validator": "^2.20.3",
@@ -57,7 +56,8 @@
     "passport-local": "1.0.0",
     "wiredep": "~2.2.0",
     "wrench": "~1.5.8",
-    "jshint-stylish": "~1.0.0"
+    "jshint-stylish": "~1.0.0",
+    "redis":""
     },
   "engines": {
     "node" : "4.4.4"

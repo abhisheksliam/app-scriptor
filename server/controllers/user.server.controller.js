@@ -8,6 +8,10 @@ var http = require('http');
 var crypto = require('crypto');
 var Users     = require('./../models/app.server.models.user');
 
+var hashPassword = function(password, saltValue) {
+    return crypto.pbkdf2Sync(password, saltValue, 1000, 64).toString('hex');
+};
+
 exports.getUser = function (req, res) {
     Users.findOne({'username': req.params.user_name}, function(err, user) {
         if (err) {
@@ -28,26 +32,26 @@ exports.getUser = function (req, res) {
 };
 
 exports.updateUserDetails = function (req, res) {
-    var user = new Users();
-    user.username = req.params.user_name;
-    user.profile.name = req.body.name;
-    user.profile.email = req.body.email;
-    user.profile.svn_credentials = {};
-    user.profile.svn_credentials.username = req.body.svnusername;
 
-    //var cipher = crypto.createCipher('aes256', 'password');
-    //user.profile.svn_credentials.password = cipher.update(req.body.svnpassword, 'utf8', 'hex') + cipher.final('hex');
+    Users.findOne({username: req.params.user_name}, function(err, user) {
 
-    Users.findOneAndUpdate({username: req.params.user_name}, {$set: {"profile.name" : user.profile.name, "profile.email" : user.profile.email, "profile.svn_credentials.username" : user.profile.svn_credentials.username}}, function(err, doc){
-        if (err) {
-            res.json({
-                "errors": {
-                    "errorMessage": err,
-                    "errorCode": "PROCESSING_ERROR"
-                }
-            });
+        if (req.body.password !== undefined) {
+            user.password = hashPassword(req.body.password, user.salt);
         }
 
-        res.json(doc);
+        user.profile.name = req.body.name;
+        user.profile.email = req.body.email;
+        user.profile.svn_credentials.username = req.body.svnusername;
+
+        var cipher = crypto.createCipher('aes256', 'password');
+        var ciph = cipher.update(req.body.svnpassword, 'utf8', 'hex');
+        ciph += cipher.final('hex');
+        user.profile.svn_credentials.password = ciph;
+
+        user.save().then(function () {
+            res.json(user);
+        })
+
     });
+
 };
