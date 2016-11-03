@@ -30,8 +30,11 @@
                     <span class="input__label-content input__label-content--hoshi"></span>
                 </label>
             </span>
+            <span  ng-show="$root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1">
+                <input i-check ng-model="genericXpath" class="generic-xpath" type="checkbox" ng-change="checkGenericXpath($index)">
+            </span>
             <span class="input input--hoshi m-l-10 inlineBlock smallWidth" ng-show="$root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1">
-                <input class="input__field input__field--hoshi xpath" type="text" id="input-42" placeholder="xpath" data-elementname="{{attribute.actVal}}" ng-class="{elementName: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}" required />
+                <input class="input__field input__field--hoshi xpath" type="text" id="input-42" placeholder="xpath" data-elementname="{{attribute.actVal}}" ng-class="{elementName: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}" />
                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-41">
                     <span class="input__label-content input__label-content--hoshi"></span>
                 </label>

@@ -26,6 +26,25 @@ angular.module('automationApp.scriptor')
                     scope.emptyActionForm = true;
                 }
 
+                scope.iCheckOptions = {
+                    checkboxClass: 'icheckbox_square-blue'
+                };
+
+                scope.checkGenericXpath = function(index) {
+                    $('.trigger-input-parent').each(function(){
+                        var ele = $(this);
+                        if(ele.find('input.generic-xpath').is(':checked')) {
+                            ele.find('input.xpath').addClass("disabled");
+                            ele.find('input.xpath').attr("disabled", true);
+                        }
+                        else {
+                            ele.find('input.xpath').removeAttr("disabled");
+                            ele.find('input.xpath').removeClass("disabled");
+                        }
+                    });
+
+                };
+
                 element.on('click',".panel-header",function (event) {
                     event.preventDefault();
 
@@ -55,7 +74,6 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-
                 //Save button clicked
                 element.on('click',".trigger-save",function (event) {
                     event.preventDefault();
@@ -78,45 +96,53 @@ angular.module('automationApp.scriptor')
                                 var value = $(this).val();
                                 var taskid = $rootScope.taskId;
                                 var app_type = $rootScope.applicationName;
+                                var isGenericChkBoxHidden = $(this).closest('.trigger-input-parent').find('input.generic-xpath').closest('span').hasClass('ng-hide');
+                                var isMandatoryXpathBlank = !($(this).closest('.trigger-input-parent').find('input.generic-xpath').is(":checked")) && (value==null || value=='');
 
-                                if (key && taskid && app_type){
-                                    saveXpathToDatabase(key, value, taskid, app_type,
-                                        function(success){
-                                            counter++;
-                                            if(counter === len) {
-
-                                                if(scope.droppedTrigger) {
-                                                    $(triggerRefrence).remove();
-                                                    scope.method.actions.splice(scope.index, 0, scope.oldAction);
-                                                    if(!scope.$$phase) {
-                                                        scope.$apply();
-                                                    };
-                                                } else {
-                                                    scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
-                                                }
-                                                scope.editMode = false;
-                                                $(this).closest('.item-level-2').removeClass('edit-mode');
-
-                                                $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>Update Successful !!</p></div>');
-                                            }
-                                            $timeout(function(){
-                                            if(!scope.$$phase) {
-                                                scope.$apply();
-                                            };
-                                            },200);
-
-                                        },
-                                        function(error){
-                                            scriptorService.getXpathArrayList(app_type).then(function(res) {
-                                                $rootScope.xpathArrayList = res;
-                                                var xPath = scriptorService.getXPathForElement(key);
-                                                $el.val(xPath);
-                                            });
-                                            $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Element ' + key + ' : ' + error + '</p></div>');
-                                        });
-                                } else {
-                                    $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Error in getting xpath values.</p></div>');
+                                if(!isGenericChkBoxHidden && isMandatoryXpathBlank) {
+                                    $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Please fill out mandatory fields.</p></div>');
                                 }
+                                else {
+                                    if (key && taskid && app_type) {
+                                        saveXpathToDatabase(key, value, taskid, app_type,
+                                            function (success) {
+                                                counter++;
+                                                if (counter === len) {
+
+                                                    if (scope.droppedTrigger) {
+                                                        $(triggerRefrence).remove();
+                                                        scope.method.actions.splice(scope.index, 0, scope.oldAction);
+                                                        if (!scope.$$phase) {
+                                                            scope.$apply();
+                                                        }
+                                                        ;
+                                                    } else {
+                                                        scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
+                                                    }
+                                                    scope.editMode = false;
+                                                    $(this).closest('.item-level-2').removeClass('edit-mode');
+
+                                                    $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>Update Successful !!</p></div>');
+                                                }
+                                                $timeout(function () {
+                                                    if (!scope.$$phase) {
+                                                        scope.$apply();
+                                                    }
+                                                    ;
+                                                }, 200);
+
+                                            },
+                                            function (error) {
+                                                scriptorService.getXpathArrayList(app_type).then(function (res) {
+                                                    $rootScope.xpathArrayList = res;
+                                                    var xPath = scriptorService.getXPathForElement(key);
+                                                    $el.val(xPath);
+                                                });
+                                                $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Element ' + key + ' : ' + error + '</p></div>');
+                                            });
+                                    }
+                                }
+
                             });
                         } else {
 
