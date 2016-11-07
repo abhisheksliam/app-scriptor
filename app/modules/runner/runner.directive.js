@@ -461,7 +461,12 @@ angular.module('automationApp.runner')
 
                                 $http.get('/api/tasks/' + scenarioId + javaQueryParam).then(function(res) {
 
-                                    postDataToRunner(scenarioId, filename, xmlContent, js_beautify(res.data), true);
+                                    bootbox.prompt("Enter Commit Message: ", function(result){
+										if (result) {
+											postDataToRunner(result, filename, xmlContent, js_beautify(res.data), true);
+										}                                       
+
+                                    })
 
                                 });
 
@@ -478,7 +483,7 @@ angular.module('automationApp.runner')
                         scope.errorList=[];
                     });
 
-                    function postDataToRunner(scenarioId, filename, xmlContent, javaContent, commit){
+                    function postDataToRunner(message, filename, xmlContent, javaContent, commit){
 
                         var appName = scope.items[0].appName;
                         var baseUrl = scope.runnerConfig.runner.url;
@@ -509,13 +514,15 @@ angular.module('automationApp.runner')
                                 "appName" : appName,
                                 "xml": xmlContent,
                                 "java": javaContent,
+                                "json": angular.toJson( scope.items[0] ),
                                 "commit": commit,
                                 "xpaths": []
                             },
                             "svn": {
                                 "url": "",
                                 "username":"",
-                                "password":""
+                                "password":"",
+                                "message": message
                             }
                         };
 
