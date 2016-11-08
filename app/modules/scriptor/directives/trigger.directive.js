@@ -16,6 +16,8 @@ angular.module('automationApp.scriptor')
             },
             link: function (scope, element, attributes) {
 
+                $rootScope.highlightInputs = false;
+
                 // Toggle Panel Content
                 scope.oldAction = angular.copy(scope.action);
                 scope.editMode = false;
@@ -55,12 +57,19 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
+                element.on('focus', "#input-41", function(event){
+                    console.log('   ***');
+                    $rootScope.highlightInputs = false;
+                    console.log($rootScope.highlightInputs);
+                    scope.$apply();
+                });
 
                 //Save button clicked
                 element.on('click',".trigger-save",function (event) {
                     event.preventDefault();
 
                     if(scope.triggerForm.$valid) {
+                        $rootScope.highlightInputs = false;
                         var triggerNumber = parseInt($(this).closest('.dd-list').index());
 
                         var triggerRefrence = $(this).closest('.dd-list');
@@ -132,7 +141,9 @@ angular.module('automationApp.scriptor')
                             scope.$apply();
                         }
                     } else {
+                        $rootScope.highlightInputs = true;
                         $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Please fill out mandatory fields.</p></div>');
+                        scope.$apply();
                     }
 
                     event.stopPropagation();

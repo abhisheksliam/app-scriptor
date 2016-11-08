@@ -23,12 +23,15 @@
     <div class="panel-content toggle-animate" ng-show="editMode">
         <form name="triggerForm" novalidate>
             <div class="m-l-30 p-l-30 trigger-input-parent" ng-repeat="attribute in oldAction.values" ng-init="innerIndex=$index">
-                <span class="label" style="display: table">{{attribute.actKey}}</span>
-            <span class="input input--hoshi inlineBlock" ng-class="{largeWidth: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)==-1, smallWidth: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}">
-                <input class="input__field input__field--hoshi {{attribute.actKey}}" type="text" id="input-41" data-index="{{innerIndex}}" ng-model="attribute.actVal" placeholder="{{attribute.actKey}}" ng-class="{elementName: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}" required />
-                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-41">
+                <span class="label" style="display: table">{{attribute.actKey}}<span class="mandatory"> *</span></span>
+
+            <span class="input input--hoshi inlineBlock" ng-class="{'input--filled':$root.highlightInputs,  'input__label--hoshi-color-1':$root.normal,  largeWidth: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)==-1, smallWidth: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}">
+                <input name="elementName" class="input__field input__field--hoshi {{attribute.actKey}}" type="text" id="input-41" data-index="{{innerIndex}}" ng-model="attribute.actVal" placeholder="{{attribute.actKey}}" ng-class="{elementName: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}" required />
+                <label class="input__label input__label--hoshi" for="input-41">
+                    <!--ng-class="triggerForm.$valid ? 'input__label--hoshi-color-1' : 'input__label--hoshi-color-3'"-->
                     <span class="input__label-content input__label-content--hoshi"></span>
                 </label>
+                <!--<p class="error-message" ng-show="triggerForm.elementName.$error.required">Element name is required.</p>-->
             </span>
             <span class="input input--hoshi m-l-10 inlineBlock smallWidth" ng-show="$root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1">
                 <input class="input__field input__field--hoshi xpath" type="text" id="input-42" placeholder="xpath" data-elementname="{{attribute.actVal}}" ng-class="{elementName: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}" required />
