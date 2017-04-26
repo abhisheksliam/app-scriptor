@@ -80,6 +80,12 @@ apirouter.put('/users/:user_name', userController.updateUserDetails);
 // get template for skill_id
 apirouter.get('/template/:skill_id', templateController.getTemplateBySkillId);
 
+apirouter.get('/scenario/:task_id', templateController.getScenarioByTaskId);
+
+apirouter.get('/mapper/:template_id', templateController.getMapperByTemplatelId);
+
+apirouter.get('/script/:task_id', templateController.getScriptByTaskId);
+
 module.exports = apirouter;
 
 function dateDisplayed(timestamp) {

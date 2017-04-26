@@ -1,6 +1,3 @@
-/**
- * Created by AbhishekK
- */
 'use strict';
 
 var mongoose     = require('mongoose');
@@ -20,4 +17,4 @@ var xpathSchema   = new Schema({
     }
 });
 
-module.exports = mongoose.model('xpath', xpathSchema);
+module.exports = mongoose.model('Xpath', xpathSchema, 'xpaths');
