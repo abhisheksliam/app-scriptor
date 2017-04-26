@@ -1,68 +1,422 @@
 swagger: '2.0'
 info:
-  version: '1.0.0'
-  title: runner-v2 api
-  termsOfService: ''
+  description: |
+    This is a sample server for Single Step.
+  version: 1.0.0
+  title: Swagger
+  termsOfService: http://swagger.io/terms/
   contact:
-    url: http://www.comprotechnologies.com
+    email: apiteam@sim5runner.herokuapp.com
   license:
-    name: Copyright, Compro Technologies Pvt. Ltd. 2015-20
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
 host: sim5runner.herokuapp.com
-basePath: /
+basePath: /api
 schemes:
-  - http
-  - https
-consumes:
-  - application/json
-produces:
-  - application/json
+ - https
+ - http
+tags:
+- name: template
+  description: Operations on template
+- name: mapper
+  description: Operations on mapper
+- name: user
+  description: Operations on user
+- name: actionlist
+  description: Operations on actionlist
+- name: locator
+  description: Operations on locator
+- name: script
+  description: Operations on script
+- name: runner
+  description: Run script
+- name: commit
+  description: Export script
+# schemes:
+# - http
 paths:
-  /api/taskjson:
+  /template:
     post:
       tags:
-        - TaskJson
-      summary: Save task Json
+      - template
+      summary: Add a new template
+      operationId: addTemplate
+      consumes:
+      - application/json
+      - application/xml
+      produces:
+      - application/json
+      - application/xml
       parameters:
-        - name: body
-          in: body
-          description: Product json to be validated
-          required: true
-          schema:
-            {}
+      - in: body
+        name: body
+        description: Template object that needs to be added to the store
+        required: true
+        schema:
+          $ref: '#/definitions/Template'
       responses:
-        400:
-          description: Bad request
-        404:
-          description: Resource not found
+        405:
+          description: Invalid input
+      security:
+      - petstore_auth:
+        - write:template
+        - read:template
+
+  /template/{templateId}:
     get:
       tags:
-        - Entitlements
-      summary: Get list taskjson.
-      responses:
-        400:
-          description: Bad request
-        404:
-          description: Resource not found
-  /api/taskjson/{taskid}:
-    get:
-      tags:
-        - TaskJson
-      summary: Get list of all products for a user.
-      operationId: getAllProductsForUser
+      - template
+      summary: Find template by ID
+      description: Returns a single template
+      operationId: getTemplateById
+      produces:
+      - application/json
+      - application/xml
       parameters:
-        - name: taskid
-          in: path
-          description: taskid
-          required: true
-          type: string
+      - name: templateId
+        in: path
+        description: ID of template to return
+        required: true
+        type: string
+        format: int64
       responses:
         200:
-          description: products response for user
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Template'
         400:
-          description: Bad request
-        401:
-          description: Invalid Authorization Token
-        403:
-          description: User not authorized
+          description: Invalid ID supplied
         404:
-          description: Resource not found
+          description: Template not found
+      security:
+      - api_key: []
+    put:
+      tags:
+      - template
+      summary: Updates a template in the store with form data
+      operationId: updateTemplateWithForm
+      consumes:
+      - application/x-www-form-urlencoded
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: templateId
+        in: path
+        description: ID of template that needs to be updated
+        required: true
+        type: string
+        format: int64
+      - name: status
+        in: formData
+        description: Updated status of the template
+        required: false
+        type: string
+      - name: data
+        in: formData
+        description: Updated body template
+        required: false
+        type: string
+      responses:
+        405:
+          description: Invalid input
+      security:
+      - petstore_auth:
+        - write:template
+        - read:template
+    delete:
+      tags:
+      - template
+      summary: Deletes a template
+      operationId: deleteTemplate
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: templateId
+        in: path
+        description: Template id to delete
+        required: true
+        type: string
+        format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+        404:
+          description: Template not found
+      security:
+      - petstore_auth:
+        - write:template
+        - read:template
+        
+  /template/{templateId}/mapper:
+    get:
+      tags:
+      - mapper
+      summary: Get mapper for a template
+      description: Returns mapper for a template
+      operationId: getMapperByTemplateId
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: templateId
+        in: path
+        description: ID of template mapper to return
+        required: true
+        type: string
+        format: int64
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Mapper'
+        400:
+          description: Invalid ID supplied
+        404:
+          description: Mapper not found
+      security:
+      - api_key: []
+    put:
+      tags:
+      - mapper
+      summary: Updates a mapper
+      operationId: updateMapperByTemplateId
+      consumes:
+      - application/x-www-form-urlencoded
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: templateId
+        in: path
+        description: ID of template for which mapper needs to be updated
+        required: true
+        type: string
+        format: int64
+      - name: data
+        in: formData
+        description: Updated mapper json
+        required: false
+        type: string
+      responses:
+        405:
+          description: Invalid input
+      security:
+      - petstore_auth:
+        - write:template
+        - read:template
+
+  /user:
+    post:
+      tags:
+      - user
+      summary: Create user
+      description: This can only be done by the logged in user.
+      operationId: createUser
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - in: body
+        name: body
+        description: Created user object
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        default:
+          description: successful operation
+  /user/login:
+    post:
+      tags:
+      - user
+      summary: Logs user into the system
+      operationId: loginUser
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - in: body
+        name: body
+        description: Created user object
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        default:
+          description: successful operation
+  /user/logout:
+    get:
+      tags:
+      - user
+      summary: Logs out current logged in user session
+      operationId: logoutUser
+      produces:
+      - application/json
+      - application/xml
+      parameters: []
+      responses:
+        default:
+          description: successful operation
+  /user/{username}:
+    get:
+      tags:
+      - user
+      summary: Get user by user name
+      operationId: getUserByName
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: username
+        in: path
+        description: The name that needs to be fetched. Use user1 for testing. 
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/User'
+        400:
+          description: Invalid username supplied
+        404:
+          description: User not found
+    put:
+      tags:
+      - user
+      summary: Updated user
+      description: This can only be done by the logged in user.
+      operationId: updateUser
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: username
+        in: path
+        description: name that need to be updated
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: Updated user object
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        400:
+          description: Invalid user supplied
+        404:
+          description: User not found
+    delete:
+      tags:
+      - user
+      summary: Delete user
+      description: This can only be done by the logged in user.
+      operationId: deleteUser
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: username
+        in: path
+        description: The name that needs to be deleted
+        required: true
+        type: string
+      responses:
+        400:
+          description: Invalid username supplied
+        404:
+          description: User not found
+securityDefinitions:
+  petstore_auth:
+    type: oauth2
+    authorizationUrl: http://petstore.swagger.io/oauth/dialog
+    flow: implicit
+    scopes:
+      write:template: modify template
+      read:template: read your template
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+definitions:
+  Meta:
+    type: object
+    properties:
+      id:
+        type: string
+        format: int64
+      name:
+        type: string
+      tags:
+        $ref: '#/definitions/Tag'
+    xml:
+      name: Category
+  User:
+    type: object
+    properties:
+      id:
+        type: string
+        format: int64
+      username:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      userStatus:
+        type: integer
+        format: int32
+        description: User Status
+    xml:
+      name: User
+  Tag:
+    type: object
+    properties:
+      id:
+        type: string
+        format: int64
+      name:
+        type: array
+    xml:
+      name: Tag
+  Template:
+    type: object
+    required:
+    - application
+    - data
+    properties:
+      id:
+        type: string
+        format: int64
+      meta:
+        $ref: '#/definitions/Meta'
+      application:
+        type: string
+        example: excel
+      data:
+        type: object
+      status:
+        type: string
+        description: pet status in the store
+        enum:
+        - available
+        - pending
+        - sold
+    xml:
+      name: Template
+  Mapper:
+    type: object
+    properties:
+      data:
+        type: object
+    xml:
+      name: Template

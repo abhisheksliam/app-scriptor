@@ -1,0 +1,68 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: runner-v2 api
+  termsOfService: ''
+  contact:
+    url: http://www.comprotechnologies.com
+  license:
+    name: Copyright, Compro Technologies Pvt. Ltd. 2015-20
+host: sim5runner.herokuapp.com
+basePath: /
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /api/taskjson:
+    post:
+      tags:
+        - TaskJson
+      summary: Save task Json
+      parameters:
+        - name: body
+          in: body
+          description: Product json to be validated
+          required: true
+          schema:
+            {}
+      responses:
+        400:
+          description: Bad request
+        404:
+          description: Resource not found
+    get:
+      tags:
+        - Entitlements
+      summary: Get list taskjson.
+      responses:
+        400:
+          description: Bad request
+        404:
+          description: Resource not found
+  /api/taskjson/{taskid}:
+    get:
+      tags:
+        - TaskJson
+      summary: Get list of all products for a user.
+      operationId: getAllProductsForUser
+      parameters:
+        - name: taskid
+          in: path
+          description: taskid
+          required: true
+          type: string
+      responses:
+        200:
+          description: products response for user
+        400:
+          description: Bad request
+        401:
+          description: Invalid Authorization Token
+        403:
+          description: User not authorized
+        404:
+          description: Resource not found
