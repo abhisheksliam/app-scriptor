@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "postinstall": "bower prune && bower install && gulp",
-    "start": "forever start -l forever.log -o out.log --append -e err.log --append server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "body-parser": "^1.13.3",
