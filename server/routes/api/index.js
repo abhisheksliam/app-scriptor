@@ -78,12 +78,16 @@ apirouter.put('/users/:user_name', userController.updateUserDetails);
 */
 
 // get template for skill_id
+apirouter.get('/template', function(req, res){res.redirect('/api/template/sample')});
 apirouter.get('/template/:skill_id', templateController.getTemplateBySkillId);
 
+apirouter.get('/scenario', function(req, res){res.redirect('/api/scenario/sample')});
 apirouter.get('/scenario/:task_id', templateController.getScenarioByTaskId);
 
+apirouter.get('/mapper', function(req, res){res.redirect('/api/mapper/sample')});
 apirouter.get('/mapper/:template_id', templateController.getMapperByTemplatelId);
 
+apirouter.get('/script', function(req, res){res.redirect('/api/script/sample')});
 apirouter.get('/script/:task_id', templateController.getScriptByTaskId);
 
 module.exports = apirouter;
