@@ -4,7 +4,6 @@ var express = require('express');
 var webrouter = express.Router();
 
 webrouter.use('/', function (req, res, next) {
-    next();
     if (req.url === '/' || req.url === '/api/login' || req.url === '/api/logout' || ((req.url.indexOf('/api/xpaths') !== -1) && (req.method === 'GET')) || req.isAuthenticated()) {
         next();
     } else {
