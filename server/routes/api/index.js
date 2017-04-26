@@ -5,6 +5,8 @@ var userController = require('../../controllers/user.server.controller');
 var xpathController = require('../../controllers/xpath.server.controller');
 var loginController = require('../../controllers/login.server.controller');
 
+var templateController = require('../../controllers/template.server.controller');
+
 // Middleware for all this apirouters requests
 apirouter.use(function timeLog(req, res, next) {
   logger.info('Request Received: ', dateDisplayed(Date.now()));
@@ -69,6 +71,14 @@ apirouter.get('/users/:user_name', userController.getUser);
 
 // update user details
 apirouter.put('/users/:user_name', userController.updateUserDetails);
+
+
+/**
+ * For Single Step
+*/
+
+// get template for skill_id
+apirouter.get('/template/:skill_id', templateController.getTemplateBySkillId);
 
 module.exports = apirouter;
 

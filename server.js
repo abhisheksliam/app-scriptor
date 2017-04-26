@@ -136,7 +136,6 @@ app.use(function(err, req, res, next){
     logger.error(err);
     res.status(err.status || appError.ERROR_CODES.OTHER.httpCode)
         .send(err);
-
 });
 
 //-----------Start listening -------------------

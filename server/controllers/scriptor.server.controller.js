@@ -1,6 +1,3 @@
-/**
- * Created by Shipra on 3/14/2016.
- */
 'use strict';
 
 const TEMPLATE_BLANK = "blank",
