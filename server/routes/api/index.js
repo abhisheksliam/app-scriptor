@@ -17,7 +17,7 @@ apirouter.use(function timeLog(req, res, next) {
 apirouter.get('/', function(req, res) {
     var rand = Math.random() * (9999999 - 9999) + 9999;
     res.writeHead(301,
-        {Location: 'https://apiui.herokuapp.com?https://raw.githubusercontent.com/sim5runner/runner-v2/master/server/routes/api/docs/swagger.json&' + rand }
+        {Location: 'https://apiui.herokuapp.com?https://raw.githubusercontent.com/sim5runner/runner-v2/single-step/server/routes/api/docs/swagger.json&' + rand }
     );
     res.end();
 });
