@@ -1,15 +1,12 @@
 swagger: '2.0'
 info:
   description: |
-    This is a sample server for Single Step.
+    This describe the api's required for sims builder for single step testing.
   version: 1.0.0
-  title: Swagger
-  termsOfService: http://swagger.io/terms/
+  title: Builder - Single Step Test API's
   contact:
-    email: apiteam@sim5runner.herokuapp.com
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    email: abhishek.kumar@comprotechnologies.com
+
 host: sim5runner.herokuapp.com
 basePath: /api
 schemes:
@@ -30,39 +27,32 @@ tags:
   description: Operations on script
 - name: runner
   description: Run script
+- name: scenario
+  description: Operations on scenario parameters
 - name: commit
   description: Export script
 # schemes:
 # - http
 paths:
   /template:
-    post:
+    get:
       tags:
       - template
-      summary: Add a new template
-      operationId: addTemplate
-      consumes:
-      - application/json
-      - application/xml
+      summary: Get all templates
+      description: Returns a single template
+      operationId: getTemplates
       produces:
       - application/json
       - application/xml
-      parameters:
-      - in: body
-        name: body
-        description: Template object that needs to be added to the store
-        required: true
-        schema:
-          $ref: '#/definitions/Template'
       responses:
-        405:
-          description: Invalid input
-      security:
-      - petstore_auth:
-        - write:template
-        - read:template
+        200:
+          description: successful operation
+        400:
+          description: Invalid ID supplied
+        404:
+          description: Template not found
 
-  /template/{templateId}:
+  /template/{Id}:
     get:
       tags:
       - template
@@ -73,7 +63,7 @@ paths:
       - application/json
       - application/xml
       parameters:
-      - name: templateId
+      - name: Id
         in: path
         description: ID of template to return
         required: true
@@ -88,67 +78,7 @@ paths:
           description: Invalid ID supplied
         404:
           description: Template not found
-      security:
-      - api_key: []
-    put:
-      tags:
-      - template
-      summary: Updates a template in the store with form data
-      operationId: updateTemplateWithForm
-      consumes:
-      - application/x-www-form-urlencoded
-      produces:
-      - application/json
-      - application/xml
-      parameters:
-      - name: templateId
-        in: path
-        description: ID of template that needs to be updated
-        required: true
-        type: string
-        format: int64
-      - name: status
-        in: formData
-        description: Updated status of the template
-        required: false
-        type: string
-      - name: data
-        in: formData
-        description: Updated body template
-        required: false
-        type: string
-      responses:
-        405:
-          description: Invalid input
-      security:
-      - petstore_auth:
-        - write:template
-        - read:template
-    delete:
-      tags:
-      - template
-      summary: Deletes a template
-      operationId: deleteTemplate
-      produces:
-      - application/json
-      - application/xml
-      parameters:
-      - name: templateId
-        in: path
-        description: Template id to delete
-        required: true
-        type: string
-        format: int64
-      responses:
-        400:
-          description: Invalid ID supplied
-        404:
-          description: Template not found
-      security:
-      - petstore_auth:
-        - write:template
-        - read:template
-        
+
   /template/{templateId}/mapper:
     get:
       tags:
@@ -175,8 +105,7 @@ paths:
           description: Invalid ID supplied
         404:
           description: Mapper not found
-      security:
-      - api_key: []
+
     put:
       tags:
       - mapper
@@ -189,6 +118,133 @@ paths:
       - application/xml
       parameters:
       - name: templateId
+        in: path
+        description: ID of template for which mapper needs to be updated
+        required: true
+        type: string
+        format: int64
+      - name: data
+        in: formData
+        description: Updated mapper json
+        required: false
+        type: string
+      responses:
+        405:
+          description: Invalid input
+      security:
+      - petstore_auth:
+        - write:template
+        - read:template
+  
+  /scenario/{taskId}:
+    get:
+      tags:
+      - scenario
+      summary: Get scenario by task id
+      description: Returns a single template
+      operationId: getScenarioeByTaskId
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: taskId
+        in: path
+        description: ID of task
+        required: true
+        type: string
+        format: int64
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Scenario'
+        400:
+          description: Invalid ID supplied
+        404:
+          description: Scenario not found
+          
+  /locator/script/{scriptId}:
+    get:
+      tags:
+      - locator
+      summary: Get locator for a script
+      description: Returns locator for a script
+      operationId: getLocatorByScriptId
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: scriptId
+        in: path
+        description: ID of template mapper to return
+        required: true
+        type: string
+        format: int64
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Locator'
+        400:
+          description: Invalid ID supplied
+        404:
+          description: Script not found
+          
+  /locator/app/{appType}/{locatorKey}:
+    post:
+      tags:
+      - locator
+      summary: Create a locator
+      operationId: newLocatorById
+      consumes:
+      - application/x-www-form-urlencoded
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: appType
+        in: path
+        description: app type (word / excel / ppt / excel)
+        required: true
+        type: string
+        format: int64
+      - name: locatorKey
+        in: path
+        description: ID of template for which mapper needs to be updated
+        required: true
+        type: string
+        format: int64
+      - name: data
+        in: formData
+        description: Updated mapper json
+        required: false
+        type: string
+      responses:
+        405:
+          description: Invalid input
+      security:
+      - petstore_auth:
+        - write:template
+        - read:template
+    
+    put:
+      tags:
+      - locator
+      summary: Updates a locator
+      operationId: updateLocatorById
+      consumes:
+      - application/x-www-form-urlencoded
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: appType
+        in: path
+        description: app type (word / excel / ppt / excel)
+        required: true
+        type: string
+        format: int64
+      - name: locatorKey
         in: path
         description: ID of template for which mapper needs to be updated
         required: true
@@ -419,4 +475,18 @@ definitions:
       data:
         type: object
     xml:
-      name: Template
+      name: Mapper
+  Scenario:
+    type: object
+    properties:
+      data:
+        type: object
+    xml:
+      name: Scenario
+  Locator:
+    type: object
+    properties:
+      data:
+        type: object
+    xml:
+      name: Locator
