@@ -450,9 +450,7 @@
           "application/json",
           "application/xml"
         ],
-        "parameters": [
-
-        ],
+        "parameters": [],
         "responses": {
           "default": {
             "description": "successful operation"
@@ -642,7 +640,7 @@
           "format": "int64"
         },
         "name": {
-          "type": "array"
+          "type": "object"
         }
       },
       "xml": {

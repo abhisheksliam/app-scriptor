@@ -441,7 +441,7 @@ definitions:
         type: string
         format: int64
       name:
-        type: array
+        type: object
     xml:
       name: Tag
   Template:
