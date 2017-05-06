@@ -89,6 +89,9 @@ apirouter.get('/template/:template_id/mapper', templateController.getMapperByTem
 apirouter.get('/script', function(req, res){res.redirect('/api/script/sample')});
 apirouter.get('/script/:task_id', templateController.getScriptByTaskId);
 
+apirouter.get('/locator', function(req, res){res.redirect('/locator/app_type/element')});
+apirouter.get('/locator/:app_type/:element', templateController.getLocatorByKey);
+
 module.exports = apirouter;
 
 function dateDisplayed(timestamp) {

@@ -8,4 +8,4 @@ var templateSchema   = new Schema({
     'skill_id': String
 });
 
-module.exports = mongoose.model('Template', templateSchema, 'template');
+module.exports = mongoose.model('Template', templateSchema, 'templates');
