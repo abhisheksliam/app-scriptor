@@ -8,6 +8,7 @@ const compress = require('compression');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+var cors = require('cors');
 
 // Error Handler
 const appError = require('./server/error/apperror.server.service.js');
@@ -48,7 +49,10 @@ app.use(function(req, res, next) {
 });
 
 //-----------CORS-------------------
-app.use(function(req, res, next) {
+
+app.use(cors());
+
+/*app.use(function(req, res, next) {
     var allowedOrigins = ['http://apiui.herokuapp.com', 'https://apiui.herokuapp.com'];
     var origin = req.headers.origin;
     if(allowedOrigins.indexOf(origin) > -1){
@@ -59,7 +63,7 @@ app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.header('Access-Control-Allow-Credentials', true);
     return next();
-});
+});*/
 
 // 2. GZIP compression
 app.use(compress());

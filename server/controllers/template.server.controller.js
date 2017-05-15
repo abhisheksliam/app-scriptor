@@ -9,7 +9,7 @@ var Locator     = require('./../models/app.server.models.locator');
 var scriptorController = require('../controllers/scriptor.server.controller');
 
 exports.getTemplateBySkillId = function (req, res) {
-    req.params.skill_id = "sort_table_column";  // todo: temporary - remove it later
+    req.params.skill_id = "sample-uuid";  // todo: temporary - remove it later
     Template.find({'skill_id': req.params.skill_id},function(err, template) {
         if (err) {
             res.json({
@@ -25,7 +25,7 @@ exports.getTemplateBySkillId = function (req, res) {
 
 exports.getScenarioByTaskId = function (req, res) {
 
-    req.params.task_id = 'EXP16.WD.02.01.05.A1';  // todo: temporary - remove it later
+    req.params.task_id = 'sample-uuid';  // todo: temporary - remove it later
     Scenario.find({'task_id': req.params.task_id},function(err, scenario) {
         if (err) {
             res.json({
@@ -41,7 +41,7 @@ exports.getScenarioByTaskId = function (req, res) {
 
 exports.getMapperByTemplatelId = function (req, res) {
 
-    req.params.template_id = "WD.Step.2.1.5_1";  // todo: temporary - remove it later
+    req.params.template_id = "sample-uuid";  // todo: temporary - remove it later
     Mapper.find({'template_id': req.params.template_id},function(err, mapper) {
         if (err) {
             res.json({
@@ -85,6 +85,6 @@ exports.getScriptByTaskId = function (req, res) {
      */
 
     // todo: update - temp
-    req.params.task_id = 'SKL16.WD.01.01.02.A1';
+    req.params.task_id = 'sample-uuid';
     scriptorController.getTaskScript(req, res);
 };
