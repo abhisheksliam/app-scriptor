@@ -91,7 +91,8 @@ apirouter.get('/script/:task_id', templateController.getScriptByTaskId);
 
 apirouter.post('/locators', xpathController.addXpath);
 apirouter.get('/locators/:app_type', xpathController.getApplicationXpaths);
-apirouter.get('/locators/:app_type/:element', templateController.getLocatorByKey);
+apirouter.get('/locators/:app_type/:xpath_key', xpathController.getApplicationXpathValue);
+
 
 
 module.exports = apirouter;
