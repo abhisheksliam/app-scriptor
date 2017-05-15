@@ -89,9 +89,9 @@ apirouter.get('/template/:template_id/mapper', templateController.getMapperByTem
 apirouter.get('/script', function(req, res){res.redirect('/api/script/sample')});
 apirouter.get('/script/:task_id', templateController.getScriptByTaskId);
 
-apirouter.post('/locator', xpathController.addXpath);
-apirouter.get('/locator/:app_type', xpathController.getApplicationXpaths);
-apirouter.get('/locator/:app_type/:element', templateController.getLocatorByKey);
+apirouter.post('/locators', xpathController.addXpath);
+apirouter.get('/locators/:app_type', xpathController.getApplicationXpaths);
+apirouter.get('/locators/:app_type/:element', templateController.getLocatorByKey);
 
 
 module.exports = apirouter;
