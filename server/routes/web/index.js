@@ -5,7 +5,7 @@ var express = require('express');
 var webrouter = express.Router();
 
 webrouter.use('/', function (req, res, next) {
-    if (req.url === '/' || req.url === '/api/login' || req.url === '/api/logout' || ((req.url.indexOf('/api/') !== -1) && (req.method === 'GET')) || req.isAuthenticated()) {
+    if (req.url === '/' || req.url === '/api/login' || req.url === '/api/logout' || ((req.url.indexOf('/api/') !== -1)/* && (req.method === 'GET')*/) || req.isAuthenticated()) {
         next();
     } else {
         res.redirect('/');
