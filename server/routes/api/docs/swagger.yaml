@@ -131,9 +131,13 @@ definitions:
         type: string
       tags:
         type: array
+        items:
+          $ref: '#/definitions/taskid'
       xpath:
         type: object
         $ref: '#/definitions/xpathSchema'
+  taskid:
+    type: string
   xpathSchema:
     required:
       - key
