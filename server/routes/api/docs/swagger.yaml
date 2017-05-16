@@ -21,7 +21,7 @@ paths:
     post:
       tags:
         - Locator
-      summary: Post in a group
+      summary: Create / Update Locator
       operationId: postLocator
       description: ''
       consumes:
@@ -31,13 +31,13 @@ paths:
       parameters:
         - name: body
           in: body
-          description: 'Post object to be added to the group(userid, email and name is optional)'
+          description: 'Post object to be added to the group(app , locator key and value)'
           required: true
           schema:
             $ref: '#/definitions/locator'
       responses:
         '200':
-          description: Post added to group
+          description: Create / Update Locator
           schema:
             type: array
             items:
@@ -54,7 +54,7 @@ paths:
     get:
       tags:
         - Locator
-      summary: Get locators
+      summary: Get locators by app type
       operationId: getLocators
       description: ''
       produces:
@@ -95,7 +95,7 @@ paths:
           type: string
         - name: key
           in: path
-          description: App type of locator
+          description: Key of locator
           required: true
           type: string
       responses:
