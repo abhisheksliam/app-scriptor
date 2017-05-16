@@ -6,7 +6,7 @@ info:
     name: Copyright 2015-20
 tags:
   - name: Locator
-    description: 'Activities related to single step template and script creation'
+    description: 'Activities related to element locators'
 schemes:
   - http
   - https
