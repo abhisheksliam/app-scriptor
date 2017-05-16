@@ -14,7 +14,7 @@ consumes:
   - application/json
 produces:
   - application/json
-host: sim5runner.herokuapp.com
+host: localhost:3000
 basePath: /api
 paths:
   '/locators':
@@ -78,7 +78,7 @@ paths:
           description: User not authorized
         '404':
           description: Resource not found
-  '/locators/{app}/{key}':  
+  '/locators/{app}/{key}':
     get:
       tags:
         - Locator
@@ -112,8 +112,6 @@ paths:
         '404':
           description: Resource not found
 
-
-
 definitions:
   locators:
     required:
@@ -125,14 +123,14 @@ definitions:
           $ref: '#/definitions/locator'
   locator:
     required:
-      - app
+      - app_type
       - tags
       - xpath
     properties:
-      app:
+      app_type:
         type: string
       tags:
-        type: string
+        type: array
       xpath:
         type: object
         $ref: '#/definitions/xpathSchema'
