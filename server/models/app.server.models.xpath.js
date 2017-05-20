@@ -17,4 +17,4 @@ var xpathSchema   = new Schema({
     }
 });
 
-module.exports = mongoose.model('Xpath', xpathSchema, 'locators');
+module.exports = mongoose.model('Xpath', xpathSchema, 'xpaths');
