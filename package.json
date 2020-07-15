@@ -50,7 +50,7 @@
     "http-status": "^0.2.1",
     "less": "2.7.1",
     "gulp-less": "*",
-    "lodash": "~3.2.0",
+    "lodash": "~4.17.19",
     "main-bower-files": "^2.9.0",
     "merge-stream": "~0.1.7",
     "passport": "0.3.2",
